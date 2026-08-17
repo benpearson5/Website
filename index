@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Periodic Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14162B;
+    --card:#1E2140;
+    --teal:#4FE0C4;
+    --coral:#FF6B4A;
+    --gold:#FFC857;
+    --paper:#F2F0E9;
+    --paper-dim:#B8B7C9;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    margin:0;
+    padding:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'IBM Plex Sans', sans-serif;
+    min-height:100vh;
+  }
+
+  /* faint periodic-table lattice in the background */
+  .lattice{
+    position:fixed;
+    inset:0;
+    display:grid;
+    grid-template-columns:repeat(18, 1fr);
+    grid-template-rows:repeat(10, 1fr);
+    gap:2px;
+    padding:2px;
+    opacity:0.06;
+    pointer-events:none;
+    z-index:0;
+  }
+  .lattice div{
+    border:1px solid var(--paper);
+    border-radius:3px;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  a:focus-visible, button:focus-visible{
+    outline:3px solid var(--gold);
+    outline-offset:3px;
+  }
+
+  header{
+    position:relative;
+    z-index:1;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:1.75rem clamp(1.25rem, 5vw, 3.5rem);
+  }
+
+  .wordmark{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    letter-spacing:0.12em;
+    color:var(--paper-dim);
+    text-transform:uppercase;
+  }
+
+  nav a{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.85rem;
+    letter-spacing:0.08em;
+    padding:0.55rem 1rem;
+    border:1px solid rgba(242,240,233,0.25);
+    border-radius:6px;
+    transition:border-color 0.2s ease, background 0.2s ease, transform 0.15s ease;
+  }
+  nav a:hover{
+    border-color:var(--teal);
+    background:rgba(79,224,196,0.08);
+    transform:translateY(-1px);
+  }
+
+  main{
+    position:relative;
+    z-index:1;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    min-height:calc(100vh - 88px);
+    padding:2rem 1.25rem 4rem;
+    text-align:center;
+    gap:2.5rem;
+  }
+
+  /* the hero "element card" */
+  .element-card{
+    position:relative;
+    width:min(320px, 80vw);
+    aspect-ratio:1;
+    background:linear-gradient(155deg, var(--card), #171933);
+    border:2px solid var(--teal);
+    border-radius:20px;
+    box-shadow:0 0 0 1px rgba(79,224,196,0.15), 0 30px 60px -20px rgba(79,224,196,0.25);
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:1.5rem;
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%, 100%{ transform:translateY(0); }
+    50%{ transform:translateY(-10px); }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .element-card{ animation:none; }
+  }
+
+  .atomic-number{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:1.1rem;
+    color:var(--gold);
+    text-align:left;
+  }
+
+  .symbol{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:5rem;
+    line-height:1;
+    color:var(--paper);
+  }
+
+  .element-name{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.8rem;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--coral);
+    text-align:right;
+  }
+
+  h1{
+    font-family:'Space Grotesk', sans-serif;
+    font-weight:700;
+    font-size:clamp(2.25rem, 6vw, 3.75rem);
+    margin:0;
+    letter-spacing:-0.02em;
+  }
+
+  h1 span{ color:var(--teal); }
+
+  .tagline{
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:clamp(1rem, 2vw, 1.15rem);
+    color:var(--paper-dim);
+    max-width:34ch;
+    margin:0 auto;
+    line-height:1.6;
+  }
+
+  .cta{
+    display:inline-flex;
+    align-items:center;
+    gap:0.6rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.95rem;
+    letter-spacing:0.04em;
+    padding:0.9rem 1.6rem;
+    background:var(--teal);
+    color:var(--ink);
+    border-radius:10px;
+    font-weight:600;
+    transition:transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .cta:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 24px -10px rgba(79,224,196,0.5);
+  }
+  .cta:hover .arrow{ transform:translateX(3px); }
+  .arrow{ transition:transform 0.15s ease; }
+
+  footer{
+    position:relative;
+    z-index:1;
+    text-align:center;
+    padding:1.5rem;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:0.75rem;
+    color:rgba(184,183,201,0.6);
+    letter-spacing:0.06em;
+  }
+</style>
+</head>
+<body>
+
+  <div class="lattice" aria-hidden="true"></div>
+
+  <header>
+    <span class="wordmark">Lab Notebook</span>
+    <nav>
+      <a href="projects.html">Projects</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="element-card" aria-hidden="true">
+      <span class="atomic-number">42</span>
+      <span class="symbol">Pp</span>
+      <span class="element-name">Periodic&nbsp;Projects</span>
+    </div>
+
+    <h1>Periodic <span>Projects</span></h1>
+    <p class="tagline">A small periodic table of things I've built — stable in some places, wildly reactive in others.</p>
+
+    <a class="cta" href="projects.html">
+      View the table <span class="arrow">&rarr;</span>
+    </a>
+  </main>
+
+  <footer>
+    Est. 2026 &middot; Handle with care
+  </footer>
+
+</body>
+</html>
